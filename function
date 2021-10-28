@@ -1,0 +1,28 @@
+double coordinate_conversion (double & latitude, double & longitude)
+{
+	double latitude_in_km = latitude*CONVERSION_KM;
+	double longitude_rad = longitude*M_PI/180;
+	double longitude_in_km = CONVERSION_KM*cos(longitude_rad);
+}
+
+double coord_dist (double x_coord_1, double y_coord_1, double x_coord_2, double y_coord_2)
+{
+	double point_dist = sqrt(pow(x_coord_2 - x_coord_1,2) + pow(y_coord_2 - y_coord_1,2));
+	return point_dist;
+}
+
+bool spill_overlap (double spill_x_1, double spill_y_1, double spill_x_2, double spill_y_2, double radius_1, double radius_2)
+{
+	double spill_dist = coord_dist (spill_x_1, spill_y_1, spill_x_2, spill_y_2);
+	if (spill_dist <= (radius_1 + radius_2));
+		return true;
+	return false;
+}
+
+bool location_position_to_spill (double spill_radius, double spill_x, double spill_y, double location_x, double location_y)
+{
+	double point_spill_dist = coord_dist (spill_x, spill_y, location_x, location_y);
+	if (point_spill_dist <= spill_radius)
+		return 1;
+	return 0;	
+}
